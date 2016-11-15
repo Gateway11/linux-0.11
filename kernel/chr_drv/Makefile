@@ -6,12 +6,12 @@
 # unless it's something special (ie not a .c file).
 #
 
-AR	=gar
+AR	=ar
 AS	=as
 LD	=ld
 LDFLAGS	=-s -x
 CC	=gcc
-CFLAGS	=-Wall -O -fstrength-reduce -fomit-frame-pointer \
+CFLAGS	=-Wall -fno-stack-protector -O -fstrength-reduce -fomit-frame-pointer \
 	-finline-functions -nostdinc -I../../include
 CPP	=gcc -E -nostdinc -I../../include
 

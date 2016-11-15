@@ -44,7 +44,7 @@ _keyboard_interrupt:
 	movl $0x10,%eax
 	mov %ax,%ds
 	mov %ax,%es
-	xorl %al,%al		/* %eax is scan code */
+	xor %al,%al		/* %eax is scan code */
 	inb $0x60,%al
 	cmpb $0xe0,%al
 	je set_e0
@@ -180,7 +180,7 @@ cur2:	cmpb $0x01,e0		/* e0 forces cursor movement */
 	je cur
 	testb $0x03,mode	/* shift forces cursor */
 	jne cur
-	xorl %ebx,%ebx
+	xor %ebx,%ebx
 	movb num_table(%eax),%al
 	jmp put_queue
 1:	ret
@@ -191,7 +191,7 @@ cur:	movb cur_table(%eax),%al
 	movb $'~,%ah
 ok_cur:	shll $16,%eax
 	movw $0x5b1b,%ax
-	xorl %ebx,%ebx
+	xor %ebx,%ebx
 	jmp put_queue
 
 #if defined(KBD_FR)
@@ -228,7 +228,7 @@ ok_func:
 	cmpl $4,%ecx		/* check that there is enough room */
 	jl end_func
 	movl func_table(,%eax,4),%eax
-	xorl %ebx,%ebx
+	xor %ebx,%ebx
 	jmp put_queue
 end_func:
 	ret
@@ -479,7 +479,7 @@ do_self:
 	je 4f
 	orb $0x80,%al
 4:	andl $0xff,%eax
-	xorl %ebx,%ebx
+	xor %ebx,%ebx
 	call put_queue
 none:	ret
 
@@ -491,7 +491,7 @@ none:	ret
 minus:	cmpb $1,e0
 	jne do_self
 	movl $'/,%eax
-	xorl %ebx,%ebx
+	xor %ebx,%ebx
 	jmp put_queue
 
 /*
